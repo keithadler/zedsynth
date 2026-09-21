@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZedSynth</title>
+<meta name="description" content="ZedSynth is a versatile software synthesizer: four oscillators with eleven modes including phase distortion and PADsynth, two filters, and nearly four hundred patches. CLAP, LV2, Audio Unit and standalone.">
+<style>
+:root {
+  --bg: #16171a;
+  --panel: #1e2024;
+  --line: #303339;
+  --text: #e8e9ea;
+  --dim: #a2a6ad;
+  --accent: #5aa9e6;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff; --panel: #f6f6f7; --line: #e0e1e4;
+    --text: #1a1b1d; --dim: #5d626b; --accent: #1f6fb2;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 72px; }
+header { padding: 56px 0 8px; }
+h1 { font-size: 40px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -0.02em; }
+h1 .dot { color: var(--accent); }
+.tag { color: var(--dim); font-size: 18px; margin: 0 0 22px; }
+h2 { font-size: 21px; margin: 44px 0 12px; letter-spacing: -0.01em; }
+h3 { font-size: 16px; margin: 26px 0 6px; }
+p, li { color: var(--text); }
+p { margin: 0 0 14px; }
+a { color: var(--accent); }
+code, kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 4px; padding: 1px 5px;
+}
+.lede { font-size: 17px; }
+.dim { color: var(--dim); }
+.small { font-size: 14px; }
+
+.rel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  padding: 18px 20px; margin: 26px 0 8px;
+}
+.rel-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.rel-head strong { font-size: 18px; }
+.ver {
+  color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 600;
+}
+.dl { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dl li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.dl .plat { min-width: 168px; color: var(--dim); font-size: 14px; }
+.dl a { text-decoration: none; border-bottom: 1px solid transparent; word-break: break-all; }
+.dl a:hover { border-bottom-color: var(--accent); }
+.bytes { color: var(--dim); font-size: 13px; }
+
+table { border-collapse: collapse; width: 100%; margin: 0 0 16px; font-size: 15px; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--dim); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+ol, ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 7px; }
+
+.note {
+  border-left: 3px solid var(--accent); background: var(--panel);
+  padding: 12px 16px; margin: 0 0 16px; border-radius: 0 6px 6px 0;
+}
+.note p:last-child { margin-bottom: 0; }
+
+footer {
+  margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+  color: var(--dim); font-size: 14px;
+}
+footer a { color: var(--dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>ZedSynth<span class="dot">.</span></h1>
+  <p class="tag">A versatile software synthesizer.</p>
+</header>
+
+<p class="lede">Four oscillators with eleven modes, two filters with ten, three LFOs,
+five envelopes, a modulation mixer and effects. Nearly four hundred factory patches.
+Free software since 2005, written by Sean Bolton as WhySynth, carried forward under a
+new name with his blessing.</p>
+
+<div class="rel">
+  <div class="rel-head">
+    <strong>Download</strong>
+    <span class="ver" id="ver">latest release</span>
+    <span class="dim small" id="date"></span>
+  </div>
+  <ul class="dl" id="downloads">
+    <li><span class="plat">Linux x86_64</span><a href="https://github.com/keithadler/zedsynth/releases/latest">tar.gz</a></li>
+    <li><span class="plat">Linux arm64</span><a href="https://github.com/keithadler/zedsynth/releases/latest">tar.gz</a></li>
+    <li><span class="plat">macOS universal</span><a href="https://github.com/keithadler/zedsynth/releases/latest">zip</a></li>
+    <li><span class="plat">Windows x64</span><a href="https://github.com/keithadler/zedsynth/releases/latest">zip</a></li>
+    <li><span class="plat">Windows ARM</span><a href="https://github.com/keithadler/zedsynth/releases/latest">zip</a></li>
+  </ul>
+  <p class="small dim" style="margin:14px 0 0">
+    Every release is on the
+    <a href="https://github.com/keithadler/zedsynth/releases">releases page</a>,
+    with notes for what changed.
+  </p>
+</div>
+
+<h2>What you get</h2>
+
+<table>
+  <tr><th>Plugins</th><td>CLAP (<code>ZedSynth.clap</code>), LV2 (<code>zedsynth.lv2</code>), Audio Unit (<code>ZedSynth.component</code>, macOS), DSSI (legacy, Linux)</td></tr>
+  <tr><th>Standalone</th><td><code>ZedSynth.app</code> (macOS), <code>ZedSynth</code> (Linux), <code>ZedSynth.exe</code> (Windows): its own window, audio and MIDI, no host needed</td></tr>
+  <tr><th>Platforms</th><td>Linux (x86_64 and arm64), macOS (Apple silicon and Intel), Windows (x64 and arm64)</td></tr>
+  <tr><th>Patches</th><td>Text files, as before. Every <code>.WhySynth</code> bank still loads.</td></tr>
+  <tr><th>License</th><td>GPL-2.0-or-later. The patches are public domain.</td></tr>
+</table>
+
+<h2>The oscillators</h2>
+
+<p>Four of them, each able to be any of eleven things:</p>
+
+<ul>
+  <li><strong>minBLEP</strong>, for the analogue shapes without the aliasing</li>
+  <li><strong>Wavecycle</strong> and <strong>chorused wavecycle</strong></li>
+  <li><strong>Asynchronous granular</strong></li>
+  <li>Three kinds of <strong>FM</strong></li>
+  <li><strong>Waveshaper</strong></li>
+  <li><strong>Noise</strong></li>
+  <li><strong>PADsynth</strong>, Paul Nasca's algorithm, for wide evolving pads</li>
+  <li><strong>Phase distortion</strong>, which is the Casio CZ's way of making a sound:
+      bend where a cosine is inside its own cycle and the harmonics arrive without a
+      filter being involved. The three CZ resonant shapes are here by name, along with
+      the paired waveforms and the octave modulation.</li>
+</ul>
+
+<h2>On the name</h2>
+
+<p>This was WhySynth through version 2.1.4. Sean Bolton, who wrote it, is taking his own
+WhySynth work toward Cortex-M7 hardware and asked that this line of development take a
+name of its own. It continues the joke the family was already telling: Xsynth, then
+Xsynth-DSSI, then WhySynth, now ZedSynth.</p>
+
+<div class="note">
+  <p><strong>Your patches still load.</strong> The file format has not changed and still
+  identifies itself as WhySynth's, so banks pass between the two in both directions.
+  <code>WHYSYNTH_DEFAULT_BANK</code> still works. What did change is the plugin
+  identifier, so <strong>a host will not find ZedSynth in a session saved with
+  WhySynth</strong>: it looks the instrument up by that identifier. Load ZedSynth and
+  load your patch into it.</p>
+</div>
+
+<h2>What is new since 2.1.4</h2>
+
+<p>The same engine, built for 2026. It is a <strong>CLAP</strong> and an <strong>LV2</strong>
+plugin on Linux, macOS and Windows, with an Audio Unit and a standalone on top of the CLAP,
+built with CMake, with tests and CI and a command line renderer. FFTW, DSSI, liblo, ALSA and
+GTK are no longer required to build it. The DSSI plugin and its GTK2 editor still build on
+Linux when their libraries are installed.</p>
+
+<footer>
+  <p>
+    <a href="https://github.com/keithadler/zedsynth">Source and issues</a> &middot;
+    <a href="https://github.com/keithadler/zedsynth/blob/master/CHANGELOG.md">Changelog</a> &middot;
+    <a href="https://github.com/keithadler/zedsynth/releases">Releases</a>
+  </p>
+  <p class="small">WhySynth is by Sean Bolton. ZedSynth continues it with his blessing.
+  GPL-2.0-or-later. Casio, Kawai and Ensoniq are trademarks of their owners and have
+  nothing to do with this.</p>
+</footer>
+
+</div>
+
+<script>
+// Read the current release from GitHub so this page cannot go stale. If the request
+// fails, the links above already point at /releases/latest, which is never wrong.
+(function () {
+  var order = [
+    ['linux-x86_64',     'Linux x86_64'],
+    ['linux-aarch64',    'Linux arm64'],
+    ['macos-universal',  'macOS universal'],
+    ['windows-x86_64',   'Windows x64'],
+    ['windows-arm64',    'Windows ARM']
+  ];
+
+  function size(n) {
+    return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB'
+                        : Math.max(1, Math.round(n / 1024)) + ' KB';
+  }
+
+  fetch('https://api.github.com/repos/keithadler/zedsynth/releases/latest', {
+    headers: { 'Accept': 'application/vnd.github+json' }
+  })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (rel) {
+      var tag = (rel.tag_name || '').replace(/^v/, '');
+      if (tag) document.getElementById('ver').textContent = tag;
+
+      if (rel.published_at) {
+        var d = new Date(rel.published_at);
+        document.getElementById('date').textContent =
+          d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      var assets = rel.assets || [];
+      var list = document.getElementById('downloads');
+      var rows = document.createDocumentFragment();
+      var found = 0;
+
+      order.forEach(function (pair) {
+        var key = pair[0], label = pair[1];
+        var a = assets.filter(function (x) { return x.name.indexOf(key) !== -1; })[0];
+        if (!a) return;
+        found++;
+        var li = document.createElement('li');
+        var plat = document.createElement('span');
+        plat.className = 'plat';
+        plat.textContent = label;
+        var link = document.createElement('a');
+        link.href = a.browser_download_url;
+        link.textContent = a.name;
+        var bytes = document.createElement('span');
+        bytes.className = 'bytes';
+        bytes.textContent = size(a.size);
+        li.appendChild(plat);
+        li.appendChild(link);
+        li.appendChild(bytes);
+        rows.appendChild(li);
+      });
+
+      if (found) {
+        list.textContent = '';
+        list.appendChild(rows);
+      }
+    })
+    .catch(function () { /* the fallback links stand */ });
+})();
+</script>
+</body>
+</html>

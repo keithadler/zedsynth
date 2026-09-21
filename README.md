@@ -41,36 +41,36 @@ Builds for every platform are attached to each
 
 | Platform | CLAP | LV2 | Audio Unit | Standalone |
 |---|---|---|---|---|
-| Linux | `~/.clap/` | `~/.lv2/` | | `WhySynth`, run it |
-| macOS | `~/Library/Audio/Plug-Ins/CLAP/` | `~/Library/Audio/Plug-Ins/LV2/` | `~/Library/Audio/Plug-Ins/Components/` | `WhySynth.app`, anywhere |
-| Windows | `%COMMONPROGRAMFILES%\CLAP\` | `%APPDATA%\LV2\` | | `WhySynth.exe`, anywhere |
+| Linux | `~/.clap/` | `~/.lv2/` | | `ZedSynth`, run it |
+| macOS | `~/Library/Audio/Plug-Ins/CLAP/` | `~/Library/Audio/Plug-Ins/LV2/` | `~/Library/Audio/Plug-Ins/Components/` | `ZedSynth.app`, anywhere |
+| Windows | `%COMMONPROGRAMFILES%\CLAP\` | `%APPDATA%\LV2\` | | `ZedSynth.exe`, anywhere |
 
-**No DAW?** The standalone is WhySynth in a window of its own. It opens on the default audio
+**No DAW?** The standalone is ZedSynth in a window of its own. It opens on the default audio
 output, listens on every MIDI input it finds, and has an *Audio/MIDI Settings* panel for the
 output device and sample rate. Plug in a keyboard and play. It has no editor, so choose
 patches with MIDI program change from the factory bank, or set `WHYSYNTH_DEFAULT_BANK` to a
 `.WhySynth` file before starting it (see below).
 
-**On Windows the window is small on purpose.** WhySynth has no controls to show, so the window
+**On Windows the window is small on purpose.** ZedSynth has no controls to show, so the window
 is a short note saying it is running. *Audio/MIDI Settings*, and saving or loading its state,
 are in the menu behind the icon at the top left of the window; right-clicking the title bar
 opens the same menu. Versions before 2.1.4 showed only the title bar, which looked like a
 failed launch and was not one.
 
 **Logic Pro and GarageBand** use the Audio Unit. After copying it, restart
-Logic; it appears under AU Instruments as Keith Adler > WhySynth. It passes
+Logic; it appears under AU Instruments as Keith Adler > ZedSynth. It passes
 Apple's `auval`, which is the check Logic runs before listing a plugin.
 
 The macOS build is unsigned. If macOS refuses to load it, remove the
 quarantine flag once:
 
 ```bash
-xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/WhySynth.clap
+xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/ZedSynth.clap
 ```
 
 ## Using it
 
-WhySynth has no window of its own yet. Your host shows its parameters, all
+ZedSynth has no window of its own yet. Your host shows its parameters, all
 196 of them plus polyphony, voice mode and glide mode, grouped by module
 (Osc1, VCF2, EG3 and so on), and you play it over MIDI.
 
@@ -82,7 +82,7 @@ implements `clap.preset-load`). The whole bank is saved with your session.
 
 **LV2.** The factory patches are shipped as LV2 presets, generated from the
 bank at build time, so they appear in your host's preset list. Any patch file
-can be turned into presets with `whysynth-lv2-gen presets out.ttl file.WhySynth`.
+can be turned into presets with `zedsynth-lv2-gen presets out.ttl file.WhySynth`.
 
 **Audio Unit.** The AU is the CLAP wrapped by
 [clap-wrapper](https://github.com/free-audio/clap-wrapper), so it has the
@@ -99,13 +99,13 @@ before it sounds. That is how the original worked too.
 
 ## The command line renderer
 
-`whysynth-render` plays notes or a whole MIDI file through the engine and
+`zedsynth-render` plays notes or a whole MIDI file through the engine and
 writes a stereo WAV. No host, no audio device.
 
 ```bash
-whysynth-render --list
-whysynth-render --program 12 --note 48 --note 55 --note 60 --out chord.wav
-whysynth-render --bank patches/more_K4_interpretations.WhySynth --midi song.mid --out song.wav
+zedsynth-render --list
+zedsynth-render --program 12 --note 48 --note 55 --note 60 --out chord.wav
+zedsynth-render --bank patches/more_K4_interpretations.WhySynth --midi song.mid --out song.wav
 ```
 
 ## Building
@@ -120,9 +120,9 @@ On Windows, build with MSVC (the Visual Studio Build Tools) and `-G Ninja` to ge
 standalone; clap-wrapper's Windows shell is C++/WinRT, which MinGW cannot compile. A MinGW
 build still produces the plugins and the tool.
 
-That produces `build/WhySynth.clap`, `build/lv2/whysynth.lv2/`,
-`build/whysynth-render`, the standalone in `build/wrapped/`, and on macOS
-`build/wrapped/WhySynth.component`. The CLAP and LV2 headers are fetched by CMake if not
+That produces `build/ZedSynth.clap`, `build/lv2/zedsynth.lv2/`,
+`build/zedsynth-render`, the standalone in `build/wrapped/`, and on macOS
+`build/wrapped/ZedSynth.component`. The CLAP and LV2 headers are fetched by CMake if not
 installed; KISS FFT is vendored. On Linux, installing `dssi-dev liblo-dev
 libgtk2.0-dev libasound2-dev` also builds the original DSSI plugin and GTK2
 editor. Installing `lilv-dev` (or `brew install lilv`) enables the LV2 host
